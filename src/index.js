@@ -94,12 +94,65 @@ function showMainScreen(user) {
   mainScreen.style.display = 'block'
   if (user) {
     displayUserInfo(user)
+    
     // 관리자 권한 확인 후 교사 모니터링 버튼 표시/숨김
-    if (isAdmin(user)) {
-      teacherBtn.style.display = 'block'
+    const teacherBtnElement = document.getElementById('teacherBtn')
+    if (teacherBtnElement) {
+      if (isAdmin(user)) {
+        teacherBtnElement.style.display = 'block'
+        console.log('교사 모니터링 버튼 표시됨 (관리자)')
+      } else {
+        teacherBtnElement.style.display = 'none'
+        console.log('교사 모니터링 버튼 숨김됨 (일반 사용자)')
+      }
     } else {
-      teacherBtn.style.display = 'none'
+      console.warn('teacherBtn 요소를 찾을 수 없습니다')
     }
+    
+    // 버튼 이벤트 리스너 설정 (화면이 표시된 후)
+    // 약간의 지연을 두어 DOM이 완전히 렌더링된 후 설정
+    setTimeout(() => {
+      setupButtonListeners()
+    }, 100)
+  }
+}
+
+// 버튼 이벤트 리스너 설정 함수
+function setupButtonListeners() {
+  // 학생 활동 페이지로 이동
+  const studentBtnElement = document.getElementById('studentBtn')
+  if (studentBtnElement) {
+    // 기존 리스너 제거 후 새로 추가
+    const newStudentBtn = studentBtnElement.cloneNode(true)
+    studentBtnElement.parentNode.replaceChild(newStudentBtn, studentBtnElement)
+    
+    newStudentBtn.addEventListener('click', (e) => {
+      e.preventDefault()
+      e.stopPropagation()
+      console.log('학생 활동하기 버튼 클릭됨 (직접 리스너)')
+      window.location.href = 'student.html'
+    })
+    console.log('학생 활동하기 버튼 리스너 설정 완료')
+  } else {
+    console.warn('studentBtn 요소를 찾을 수 없습니다')
+  }
+
+  // 교사 모니터링 페이지로 이동
+  const teacherBtnElement = document.getElementById('teacherBtn')
+  if (teacherBtnElement) {
+    // 기존 리스너 제거 후 새로 추가
+    const newTeacherBtn = teacherBtnElement.cloneNode(true)
+    teacherBtnElement.parentNode.replaceChild(newTeacherBtn, teacherBtnElement)
+    
+    newTeacherBtn.addEventListener('click', (e) => {
+      e.preventDefault()
+      e.stopPropagation()
+      console.log('교사 모니터링 버튼 클릭됨 (직접 리스너)')
+      window.location.href = 'teacherMonitor.html'
+    })
+    console.log('교사 모니터링 버튼 리스너 설정 완료')
+  } else {
+    console.warn('teacherBtn 요소를 찾을 수 없습니다')
   }
 }
 
@@ -116,25 +169,47 @@ onAuthStateChanged(auth, (user) => {
   }
 })
 
+// 이벤트 위임을 사용한 버튼 클릭 처리
+document.addEventListener('click', (e) => {
+  // 학생 활동하기 버튼 클릭
+  const studentBtnClicked = e.target.id === 'studentBtn' || 
+                            e.target.closest('#studentBtn') ||
+                            (e.target.tagName === 'BUTTON' && e.target.textContent.includes('학생 활동하기'))
+  
+  if (studentBtnClicked) {
+    e.preventDefault()
+    e.stopPropagation()
+    console.log('학생 활동하기 버튼 클릭됨 (이벤트 위임)', e.target)
+    window.location.href = 'student.html'
+    return false
+  }
+  
+  // 교사 모니터링 버튼 클릭
+  const teacherBtnClicked = e.target.id === 'teacherBtn' || 
+                           e.target.closest('#teacherBtn') ||
+                           (e.target.tagName === 'BUTTON' && e.target.textContent.includes('교사 모니터링'))
+  
+  if (teacherBtnClicked) {
+    e.preventDefault()
+    e.stopPropagation()
+    console.log('교사 모니터링 버튼 클릭됨 (이벤트 위임)', e.target)
+    window.location.href = 'teacherMonitor.html'
+    return false
+  }
+}, true) // capture phase에서도 처리
+
 // 페이지 로드 시 초기화
 document.addEventListener('DOMContentLoaded', () => {
   // Google 로그인 버튼 클릭
-  googleLoginBtn.addEventListener('click', handleGoogleLogin)
+  if (googleLoginBtn) {
+    googleLoginBtn.addEventListener('click', handleGoogleLogin)
+  }
 
   // 로그아웃 버튼 클릭
-  logoutBtn.addEventListener('click', handleLogout)
-
-  // 학생 활동 페이지로 이동
-  if (studentBtn) {
-    studentBtn.addEventListener('click', () => {
-      window.location.href = 'student.html'
-    })
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', handleLogout)
   }
 
-  // 교사 모니터링 페이지로 이동
-  if (teacherBtn) {
-    teacherBtn.addEventListener('click', () => {
-      window.location.href = 'teacherMonitor.html'
-    })
-  }
+  // 초기 버튼 이벤트 리스너 설정 (로그인 전에도 설정)
+  setupButtonListeners()
 })
