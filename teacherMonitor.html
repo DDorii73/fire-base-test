@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>교사 모니터링 - 사회정서학습</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="monitor-container">
+        <!-- 헤더 -->
+        <header class="monitor-header">
+          <h1>📊 교사 모니터링</h1>
+          <button onclick="window.location.href='index.html'" class="back-button">
+            ← 메인으로 돌아가기
+          </button>
+        </header>
+
+        <!-- 메인 컨텐츠 영역 -->
+        <div class="monitor-content">
+          <!-- 좌측: 필터 및 사용자 목록 -->
+          <aside class="monitor-sidebar">
+            <div class="filter-section">
+              <h2>📅 날짜 필터</h2>
+              <div id="dateFilterList" class="date-filter-list">
+                <p class="loading-text">데이터를 불러오는 중...</p>
+              </div>
+            </div>
+            
+            <div class="user-list-section">
+              <h2>👥 학생 목록</h2>
+              <div id="userList" class="user-list">
+                <p class="empty-text">날짜를 선택해주세요</p>
+              </div>
+            </div>
+          </aside>
+
+          <!-- 가운데: 대화 내용 -->
+          <main class="monitor-main">
+            <div class="content-header">
+              <h2>💬 대화 내용</h2>
+            </div>
+            <div id="conversationContent" class="conversation-content">
+              <div class="empty-state">
+                <p>👈 좌측에서 학생을 선택해주세요</p>
+              </div>
+            </div>
+          </main>
+
+          <!-- 오른쪽: 그림 -->
+          <aside class="monitor-rightbar">
+            <div class="content-header">
+              <h2>🎨 그림</h2>
+            </div>
+            <div id="drawingContent" class="drawing-content">
+              <div class="empty-state">
+                <p>👈 좌측에서 학생을 선택해주세요</p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/admin.js"></script>
+  </body>
+</html>

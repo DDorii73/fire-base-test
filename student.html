@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>학생 활동 - 사회정서학습</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 사용자 정보 표시 -->
+      <div id="userInfoBar" class="user-info-bar" style="display: none;">
+        <div class="user-info-content">
+          <span id="userNameDisplay" class="user-name-display"></span>
+          <span id="userEmailDisplay" class="user-email-display"></span>
+        </div>
+      </div>
+
+      <!-- Chatbot 화면 -->
+      <div id="chatbotScreen" class="container chatbot-container">
+        <div class="header">
+          <h1>오늘 하루는 어땠나요? 💭</h1>
+          <p class="subtitle">챗봇과 대화를 나눠보세요 (3~7회)</p>
+        </div>
+        
+        <div id="chatMessages" class="chat-messages">
+          <div class="message bot-message">
+            <div class="message-content">
+              안녕하세요! 오늘 학교에서 하루를 보내고 오셨군요. 오늘 하루는 어땠는지 이야기해볼까요? 😊
+            </div>
+          </div>
+        </div>
+        
+        <div class="chat-input-container">
+          <input 
+            type="text" 
+            id="userInput" 
+            class="chat-input" 
+            placeholder="메시지를 입력하세요..."
+            maxlength="500"
+          />
+          <button id="sendBtn" class="send-button">전송</button>
+        </div>
+        
+        <div class="chat-controls">
+          <span id="turnCount" class="turn-count">대화 횟수: 0회</span>
+          <button id="endChatBtn" class="button-secondary" style="display: none;">
+            대화 끝내기
+          </button>
+        </div>
+        
+        <button onclick="window.location.href='index.html'" class="back-button">
+          ← 메인으로 돌아가기
+        </button>
+      </div>
+
+      <!-- 그림 그리기 화면 -->
+      <div id="drawingScreen" class="container drawing-container" style="display: none;">
+        <div class="header">
+          <h1>오늘 하루를 그림으로 표현해보세요 🎨</h1>
+          <p class="subtitle">하얀 바탕에 검정색으로 자유롭게 그려보세요</p>
+        </div>
+        
+        <div class="drawing-area-wrapper">
+          <canvas id="drawingCanvas" class="drawing-canvas"></canvas>
+        </div>
+        
+        <div class="drawing-controls">
+          <button id="clearBtn" class="button-secondary">지우기</button>
+          <button id="submitBtn" class="button-primary">제출하기</button>
+        </div>
+        
+        <button onclick="window.location.href='index.html'" class="back-button">
+          ← 메인으로 돌아가기
+        </button>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

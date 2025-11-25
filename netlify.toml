@@ -1,0 +1,30 @@
+# Netlify 배포 설정 파일
+
+[build]
+  # 빌드 명령어
+  command = "npm run build"
+  # 빌드 출력 디렉토리
+  publish = "dist"
+
+# 환경 변수 (Netlify 대시보드에서 설정하는 것을 권장)
+# [build.environment]
+#   NODE_VERSION = "18"
+
+# SPA 라우팅을 위한 리다이렉트 규칙
+# 모든 경로를 index.html로 리다이렉트 (404 방지)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# 특정 HTML 파일들에 대한 직접 접근 허용
+[[redirects]]
+  from = "/student.html"
+  to = "/student.html"
+  status = 200
+
+[[redirects]]
+  from = "/teacherMonitor.html"
+  to = "/teacherMonitor.html"
+  status = 200
+
