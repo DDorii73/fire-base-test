@@ -4,6 +4,9 @@ export default defineConfig({
   // 환경 변수 설정
   envPrefix: 'VITE_',
   
+  // base 경로 설정 (배포 시 루트 경로 사용)
+  base: '/',
+  
   // 빌드 설정
   build: {
     outDir: 'dist',

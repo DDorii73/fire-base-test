@@ -10,21 +10,23 @@
 # [build.environment]
 #   NODE_VERSION = "18"
 
-# SPA 라우팅을 위한 리다이렉트 규칙
-# 모든 경로를 index.html로 리다이렉트 (404 방지)
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
-# 특정 HTML 파일들에 대한 직접 접근 허용
+# 리다이렉트 규칙 (순서 중요!)
+# 1. 정적 파일들 (HTML, CSS, JS 등)은 먼저 처리
 [[redirects]]
   from = "/student.html"
   to = "/student.html"
   status = 200
+  force = false
 
 [[redirects]]
   from = "/teacherMonitor.html"
   to = "/teacherMonitor.html"
+  status = 200
+  force = false
+
+# 2. 나머지 모든 경로는 index.html로 리다이렉트 (SPA 라우팅)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
   status = 200
 

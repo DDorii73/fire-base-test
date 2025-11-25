@@ -17,7 +17,7 @@ const firebaseConfig = {
   })
 }
 
-// 환경 변수 확인 (개발 모드에서만)
+// 환경 변수 확인 (개발 모드에서만 상세 로그, 프로덕션에서는 에러만)
 if (import.meta.env.DEV) {
   console.log('=== Firebase 환경 변수 확인 ===')
   console.log('API Key:', firebaseConfig.apiKey ? `${firebaseConfig.apiKey.substring(0, 20)}...` : '❌ 없음')
@@ -27,6 +27,15 @@ if (import.meta.env.DEV) {
   console.log('Messaging Sender ID:', firebaseConfig.messagingSenderId || '❌ 없음')
   console.log('App ID:', firebaseConfig.appId ? `${firebaseConfig.appId.substring(0, 20)}...` : '❌ 없음')
   console.log('============================')
+} else {
+  // 프로덕션 모드에서도 필수 값 확인
+  const hasRequiredFields = firebaseConfig.apiKey && 
+                            firebaseConfig.authDomain && 
+                            firebaseConfig.projectId && 
+                            firebaseConfig.appId
+  if (!hasRequiredFields) {
+    console.error('❌ Firebase 환경 변수가 설정되지 않았습니다. Netlify 대시보드에서 환경 변수를 확인하세요.')
+  }
 }
 
 // 필수 값 확인

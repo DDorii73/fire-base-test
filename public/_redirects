@@ -1,6 +1,10 @@
 # Netlify 리다이렉트 규칙
 # SPA 라우팅을 위한 설정
 
-# 모든 경로를 index.html로 리다이렉트 (404 방지)
+# 정적 HTML 파일들 먼저 처리
+/student.html    /student.html   200
+/teacherMonitor.html    /teacherMonitor.html   200
+
+# 나머지 모든 경로를 index.html로 리다이렉트 (404 방지)
 /*    /index.html   200
 
