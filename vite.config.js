@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+import { resolve } from 'path'
 
 export default defineConfig({
   // 환경 변수 설정
@@ -14,6 +15,11 @@ export default defineConfig({
     sourcemap: false,
     minify: 'esbuild',
     rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        student: resolve(__dirname, 'student.html'),
+        teacherMonitor: resolve(__dirname, 'teacherMonitor.html')
+      },
       output: {
         manualChunks: {
           'firebase': ['firebase/app', 'firebase/auth', 'firebase/firestore', 'firebase/storage']
